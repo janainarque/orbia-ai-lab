@@ -11,3 +11,8 @@ __pycache__/
 *.joblib
 .streamlit/secrets.toml
 .DS_Store
+
+# Orbia Intelligence - datasets de futebol
+data/raw/
+data/processed/
+data/quarantine/
