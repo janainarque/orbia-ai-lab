@@ -18,30 +18,35 @@ def render_header() -> None:
 
         <div class="orbia-status">
             <span class="orbia-status-dot"></span>
-            ESTUDO DE CASO
+            PROJETO EXPERIMENTAL
         </div>
     </div>
 
     <div class="hero">
         <div class="eyebrow">
-            WORLD CUP 2026 / ANALYTICS
+            FOOTBALL DATA / ANALYTICS LAB
         </div>
 
         <h1>
-            Probabilidades sob uma
-            <span>nova perspectiva.</span>
+            Do histórico à
+            <span>inteligência de jogo.</span>
         </h1>
 
         <p>
-            Explore o ranking observado, compare seleções
-            e entenda o contexto por trás das previsões
-            apresentadas na demonstração.
+            Explore dados históricos de seleções,
+            compare desempenhos e experimente
+            simulações estatísticas em um laboratório
+            de análise de futebol.
         </p>
 
         <div class="hero-footer">
-            <span class="tag">MVP 01</span>
-            <span class="hero-meta">Dados parciais observados</span>
-            <span class="hero-meta">Sem retreinamento</span>
+            <span class="tag">V6.2</span>
+            <span class="hero-meta">
+                Dados históricos auditados
+            </span>
+            <span class="hero-meta">
+                Simulação experimental
+            </span>
         </div>
     </div>
     """)
