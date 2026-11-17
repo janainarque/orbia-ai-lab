@@ -10,6 +10,7 @@ from components.header import render_header
 from components.metrics import render_metrics
 from components.charts import render_probability_chart
 from components.statistics import render_statistical_summary
+from components.simulator import render_simulator
 
 BASE = Path(__file__).resolve().parent
 RANKING = carregar_ranking(BASE / "data" / "ranking_observado_video.csv")
@@ -44,47 +45,19 @@ ranking_filtrado = [
     if item.selecao in selecoes_filtradas
 ]
 
-aba1, aba2, aba3 = st.tabs(["Visão geral", "Metodologia", "Origem e créditos"])
+aba1, aba2, aba3, aba4 = st.tabs(
+    [
+        "Visão geral",
+        "Metodologia",
+        "Origem e créditos",
+        "Simulador Monte Carlo",
+    ]
+)
 
 with aba1:
     render_metrics(ranking_filtrado, len(RANKING))
     render_probability_chart(ranking_filtrado)
     render_statistical_summary(RANKING)
-
-    estatisticas = analisar_recorte(RANKING)
-
-    with st.container(border=True):
-        col1, col2, col3, col4 = st.columns(4)
-
-        col1.metric(
-            "Percentual observado",
-            f"{estatisticas.percentual_observado:.1f}%"
-            .replace(".", ","),
-        )
-
-        col2.metric(
-            "Fora do recorte observado",
-            f"{estatisticas.percentual_nao_exibido:.1f}%"
-            .replace(".", ","),
-        )
-
-        col3.metric(
-            "Soma das duas líderes",
-            f"{estatisticas.concentracao_duas_lideres:.1f}%"
-            .replace(".", ","),
-        )
-
-        col4.metric(
-            "Amplitude do ranking",
-            f"{estatisticas.amplitude_pp:.1f} p.p."
-            .replace(".", ","),
-        )
-
-    st.caption(
-        "Os indicadores descrevem o ranking parcial disponível. "
-        "Não representam novas previsões ou simulações."
-    )
-
 
     st.markdown(
         """
@@ -157,3 +130,5 @@ with aba3:
     st.write("Este MVP é uma implementação independente de retrospectiva, criada como evolução de estudo de caso. O IAPredict original foi desenvolvido por Marcos Vinicius da Silva e utilizado como referência em um bootcamp.")
     st.markdown("[Repositório original](https://github.com/marcovsilva/iapredict-copa2026)")
     st.write("Nenhum código do pipeline original foi incluído neste MVP. A reutilização do projeto-base depende da verificação de permissões.")
+with aba4:
+    render_simulator()
