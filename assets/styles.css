@@ -1,0 +1,235 @@
+.stApp {background: #0b111a; color: #e9edf5;}
+.block-container {max-width: 1120px; padding-top: 2.2rem;}
+.hero {border:1px solid #27364a; border-radius:22px; padding:30px 34px; background:linear-gradient(110deg,#101d2a,#17152b); margin-bottom:24px;}
+.eyebrow {color:#6ee7cf;letter-spacing:.16em;font-size:.75rem;font-weight:700;}
+.hero h1 {color:#f4f7fb;font-size:3rem;margin:.35rem 0;}
+.hero p {color:#b6c3d5;max-width:660px;}
+.tag {display:inline-block;background:#1b3441;color:#8fe5d8;padding:5px 12px;border-radius:20px;font-size:.75rem;}
+.note {border-left:3px solid #7d75ee;background:#151c2a;padding:13px 17px;border-radius:5px;color:#cbd5e1;}
+
+/* Estrutura */
+[data-testid="stAppViewContainer"] {
+    background: #0b111a;
+}
+
+[data-testid="stHeader"] {
+    background: transparent;
+}
+
+.block-container {
+    max-width: 1200px;
+    padding-top: 2rem;
+}
+
+/* Navegação lateral */
+[data-testid="stSidebar"] {
+    background: #101a29;
+    border-right: 1px solid #29374b;
+}
+
+[data-testid="stSidebar"] [data-baseweb="tag"] {
+    background: #205348 !important;
+    border-radius: 7px;
+}
+
+[data-testid="stSidebar"] [data-baseweb="tag"] span {
+    color: #c2f8e9 !important;
+}
+
+/* Indicadores */
+[data-testid="stMetric"] {
+    background: linear-gradient(
+        145deg, #172438, #111b2a
+    );
+    border: 1px solid #2c3b51;
+    border-radius: 16px;
+    padding: 22px;
+    min-height: 135px;
+}
+
+[data-testid="stMetricLabel"] p {
+    color: #9cacc2 !important;
+    font-size: 13px;
+}
+
+[data-testid="stMetricValue"] {
+    color: #f0f5ff !important;
+    font-weight: 750;
+    letter-spacing: -0.04em;
+}
+
+/* Abas */
+[data-baseweb="tab"] {
+    color: #9aacc3 !important;
+    font-weight: 600;
+}
+
+[data-baseweb="tab"][aria-selected="true"] {
+    color: #66e3c9 !important;
+}
+
+[data-baseweb="tab-highlight"] {
+    background: #66e3c9 !important;
+}
+
+/* Gráficos e contêineres */
+[data-testid="stVerticalBlockBorderWrapper"] {
+    border-color: #29374b;
+}
+
+h2, h3 {
+    letter-spacing: -0.035em;
+}
+
+
+/* ORBIA V3 — Identidade visual */
+
+.block-container {
+    max-width: 1180px;
+    padding-top: 1.4rem;
+    padding-bottom: 3rem;
+}
+
+/* Identidade */
+.orbia-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.orbia-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.orbia-brand-icon {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: #193a3b;
+    color: #69e5d0;
+    font-size: 25px;
+}
+
+.orbia-brand-name {
+    color: #f5f7fc;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: .12em;
+}
+
+.orbia-brand-subtitle {
+    color: #8394ac;
+    font-size: 10px;
+    letter-spacing: .16em;
+}
+
+.orbia-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #a5b8c9;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .08em;
+}
+
+.orbia-status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #69e5d0;
+    box-shadow: 0 0 12px #69e5d055;
+}
+
+/* Hero */
+.hero {
+    background:
+        radial-gradient(
+            circle at 92% 10%,
+            #49316c44,
+            transparent 42%
+        ),
+        linear-gradient(120deg, #142232, #171829);
+    border: 1px solid #29364a;
+    border-radius: 20px;
+    padding: 30px 34px;
+    margin-bottom: 18px;
+}
+
+.hero h1 {
+    font-size: clamp(2rem, 3.2vw, 2.9rem);
+    line-height: 1.12;
+    letter-spacing: -.045em;
+    max-width: 750px;
+    margin: 12px 0;
+}
+
+.hero h1 span {
+    color: #69e5d0;
+}
+
+.hero p {
+    font-size: 14px;
+    line-height: 1.7;
+    max-width: 630px;
+    margin-bottom: 18px;
+}
+
+.hero-footer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.hero-meta {
+    color: #91a2b8;
+    font-size: 11px;
+}
+
+/* Cards de indicadores */
+[data-testid="stMetric"] {
+    position: relative;
+    background: linear-gradient(145deg, #192538, #121d2c);
+    border: 1px solid #2a3a50;
+    border-radius: 16px;
+    padding: 20px 22px;
+    min-height: 124px;
+    overflow: hidden;
+}
+
+[data-testid="stMetric"]::before {
+    content: "";
+    position: absolute;
+    left: 22px;
+    bottom: 0;
+    width: 42px;
+    height: 3px;
+    border-radius: 4px;
+    background: #69e5d0;
+}
+
+[data-testid="stMetricValue"] {
+    color: #f2f6ff !important;
+    font-size: clamp(1.55rem, 2.3vw, 2.1rem);
+}
+
+@media (max-width: 700px) {
+    .hero {
+        padding: 22px;
+    }
+
+    .orbia-status {
+        font-size: 9px;
+    }
+
+    .hero-footer {
+        gap: 10px;
+    }
+}
