@@ -2,11 +2,13 @@
 
 ### Football Data & Analytics Lab
 
-Laboratório independente de análise de futebol que combina dados históricos, estatísticas descritivas, visualização interativa e simulações experimentais.
+Laboratório independente de análise de futebol que combina dados históricos, estatísticas descritivas, modelagem matemática, visualização interativa e simulações experimentais.
 
 O objetivo é construir, de forma incremental, uma plataforma de inteligência esportiva com foco em qualidade de dados, reprodutibilidade, testes automatizados e transparência metodológica.
 
-**Versão atual: V6.2 — Historical Football Analytics**
+**Versão em desenvolvimento: V7 — Elo Rating Engine**
+
+A V6.2 está integrada à `main`. A V7 está implementada na branch `feature/elo-rating-engine` e aguarda revisão e publicação.
 
 ## Funcionalidades
 
@@ -19,20 +21,66 @@ O objetivo é construir, de forma incremental, uma plataforma de inteligência e
 - Comparação visual entre seleções.
 - Análise individual de desempenho.
 
-O ranking utiliza três pontos por vitória e um por empate. Ele não representa o ranking oficial da FIFA nem mede diretamente a força relativa das seleções.
+O ranking utiliza três pontos por vitória e um por empate. Ele é descritivo, não representa o ranking oficial da FIFA e não mede diretamente a força relativa das seleções.
 
-### 2. Simulador Monte Carlo
+### 2. Elo Rating Engine — V7
+
+Motor experimental de avaliação de força relativa de seleções, baseado em resultados históricos de partidas internacionais.
+
+**Metodologia implementada:**
+
+- Rating inicial de 1500 pontos por seleção.
+- Fator K fixo de 20 pontos.
+- Cálculo do resultado esperado de cada confronto.
+- Atualização dos ratings após vitórias, empates e derrotas.
+- Processamento cronológico das partidas por data.
+- Ordenação determinística para partidas na mesma data.
+- Possibilidade de calcular ratings em datas históricas.
+
+**Ranking interativo:**
+
+- Classificação por rating Elo.
+- Data de referência configurável.
+- Filtro por quantidade mínima de partidas.
+- Filtro de atividade recente, com janelas de 365, 730 ou 1095 dias.
+- Visualização das 15 primeiras seleções.
+- Comparação entre duas seleções, incluindo posições e diferença de rating.
+
+**Evolução histórica:**
+
+- Gráfico interativo da evolução anual dos ratings.
+- Comparação de até quatro seleções.
+- Seleção do período de análise.
+- Preservação do histórico anterior ao período visualizado.
+- Consulta aos dados utilizados no gráfico.
+- Tratamento de períodos sem partidas e seleções não selecionadas.
+
+Cada ponto da evolução anual representa o último rating registrado em partidas daquele ano. Anos sem partidas não geram novas observações.
+
+O cálculo considera o histórico anterior ao período selecionado, evitando reiniciar artificialmente o rating no primeiro ano exibido.
+
+**Limitações metodológicas:**
+
+O modelo utiliza uma implementação experimental do sistema Elo, sem vantagem de mando, ponderação por competição, ajuste pela diferença de gols ou tratamento específico de disputas por pênaltis.
+
+A ordenação de partidas realizadas na mesma data é determinística, mas não necessariamente corresponde à ordem real dos horários dos confrontos.
+
+Os ratings não representam a classificação oficial da FIFA. A capacidade preditiva do modelo ainda não foi validada.
+
+### 3. Simulador Monte Carlo
 
 Simulador experimental de torneio eliminatório com quatro seleções.
 
 - Execução de múltiplas simulações.
-- Probabilidades estimadas de título dentro do cenário.
+- Frequências estimadas de títulos dentro do cenário simulado.
 - Resultados reproduzíveis com semente aleatória.
 - Ratings ilustrativos definidos para o experimento.
 
-Os ratings ainda não são calculados a partir da base histórica. Os resultados não constituem previsões empiricamente validadas da Copa do Mundo.
+O simulador ainda não utiliza os ratings históricos calculados pelo Elo Rating Engine.
 
-### 3. Análise de probabilidades observadas
+Seus resultados não constituem previsões empiricamente validadas da Copa do Mundo.
+
+### 4. Análise de probabilidades observadas
 
 Estudo de caso independente baseado em quatro percentuais observados em uma demonstração externa:
 
@@ -47,18 +95,20 @@ Esses percentuais não foram produzidos pelo motor estatístico do Orbia e não 
 
 ## Engenharia de dados
 
-A infraestrutura histórica foi desenvolvida com foco em rastreabilidade.
+A infraestrutura histórica foi desenvolvida com foco em rastreabilidade, auditoria e reprodução dos resultados.
 
 | Indicador | Resultado |
 |---|---:|
 | Registros originais | 49.940 |
 | Registros aprovados | 49.938 |
 | Registros em quarentena | 2 |
-| Testes automatizados | 79 |
+| Testes automatizados aprovados durante o desenvolvimento da V7 | 127 |
 
 Os dois registros conflitantes foram isolados, sem escolher arbitrariamente um dos placares.
 
 A base processada pode ser reconstruída a partir de um snapshot versionado, inclusive sem acesso à fonte externa.
+
+O conjunto histórico utilizado nesta versão contém partidas registradas até 06/10/2026.
 
 Consulte [DADOS_FUTEBOL.md](docs/DADOS_FUTEBOL.md) para detalhes de origem, integridade, auditoria e limitações.
 
@@ -118,28 +168,57 @@ A reconstrução da base histórica também deve ser realizada no ambiente em qu
 
 ## Testes automatizados
 
+Execute a suíte completa:
+
 ```powershell
 python -m unittest discover -s tests -v
 ```
 
-A suíte da V6.2 possui 79 testes, incluindo validação de dados, importação, auditoria, estatísticas, ranking, simulação e recuperação do snapshot.
+Durante o desenvolvimento da V7, a suíte alcançou 127 testes aprovados, abrangendo:
+
+- Validação e transformação de dados.
+- Importação e auditoria da base histórica.
+- Recuperação do snapshot.
+- Estatísticas descritivas e ranking histórico.
+- Simulação Monte Carlo.
+- Cálculo e atualização de ratings Elo.
+- Geração de rankings Elo.
+- Filtros históricos e de atividade.
+- Evolução anual dos ratings.
+
+A execução final da suíte será realizada antes da publicação da V7.
 
 ## Limitações atuais
 
 - A base histórica é uma compilação comunitária, não um registro oficial certificado.
 - A cobertura varia entre seleções e períodos.
+- A base inclui equipes históricas, territoriais e regionais.
 - O ranking por aproveitamento não ajusta a dificuldade dos adversários.
-- O simulador utiliza ratings ilustrativos.
-- Ainda não existe um modelo preditivo treinado e validado retrospectivamente a partir da base histórica.
+- O ranking Elo utiliza parâmetros fixos e ainda não passou por validação preditiva.
+- O simulador Monte Carlo utiliza ratings ilustrativos, independentes do motor Elo.
+- Ainda não existe avaliação retrospectiva formal das probabilidades produzidas pelo modelo Elo.
 - As probabilidades observadas no estudo de caso externo são parciais.
 
 ## Próximas evoluções
 
-- Modelo de rating Elo baseado em partidas históricas.
-- Validação temporal dos ratings.
-- Avaliação de previsões com métricas apropriadas.
-- Simulação de confrontos utilizando parâmetros estimados.
-- Evolução da experiência visual e da documentação.
+### V8 — Validação preditiva
+
+- Avaliação temporal do modelo Elo.
+- Prevenção de vazamento de informações futuras.
+- Estimativa de probabilidades de confrontos.
+- Comparação com modelos de referência.
+- Avaliação de calibração e Brier Score.
+- Investigação da sensibilidade dos parâmetros.
+
+### V9 — Simulação orientada por dados
+
+- Integração dos ratings históricos ao simulador.
+- Substituição dos ratings ilustrativos por estimativas.
+- Avaliação de diferentes modelos de resultados.
+- Simulação de cenários de torneios.
+- Apresentação de incertezas e limitações.
+
+Consulte o [Roadmap técnico](docs/ROADMAP.md) para acompanhar o planejamento completo.
 
 ## Fontes e créditos
 

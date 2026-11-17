@@ -39,14 +39,19 @@ def render_header() -> None:
             de análise de futebol.
         </p>
 
+
         <div class="hero-footer">
-            <span class="tag">V6.2</span>
+            <span class="tag">V7</span>
             <span class="hero-meta">
                 Dados históricos auditados
+            </span>
+            <span class="hero-meta">
+                Elo Rating Engine
             </span>
             <span class="hero-meta">
                 Simulação experimental
             </span>
         </div>
+
     </div>
     """)
