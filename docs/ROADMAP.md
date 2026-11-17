@@ -1,26 +1,129 @@
-# Roadmap técnico
+# Orbia Intelligence — Roadmap técnico
 
-## Entrega 01 — concluída no protótipo local
+Este documento acompanha a evolução do Orbia Intelligence,
+um laboratório independente de análise de dados e
+simulação estatística aplicada ao futebol.
 
-- [x] Projeto independente sem copiar código do bootcamp
-- [x] Recorte de probabilidades observado em vídeo
-- [x] Validação e testes de regras de negócio
-- [x] Dashboard inicial e GitHub Actions
-- [x] Documentação de origem, limites e créditos
+## V1–V4 — Fundação e análise descritiva
 
-## Entrega 02 — próxima
+**Status: concluído**
 
-- [ ] Obter snapshot **integral** e datado da previsão anterior à Copa
-- [ ] Guardar SHA-256, origem, data de extração e versão do modelo
-- [ ] Obter resultado oficial documentado e criar cronologia
-- [ ] Comparar previsões e resultados por rodada, sem usar dados futuros na previsão histórica
-- [ ] Melhorar dashboard: filtros, histórico, comparação e acessibilidade
+- [x] Estrutura inicial do projeto Python
+- [x] Dashboard interativo com Streamlit
+- [x] Estudo de caso independente de probabilidades observadas
+- [x] Validação de dados e regras de negócio
+- [x] Indicadores estatísticos descritivos
+- [x] Testes automatizados
+- [x] Documentação de origem e créditos
 
-## Entrega 03 — evolução real de IA
+## V5 — Simulação Monte Carlo
 
-- [ ] Projetar novo motor de simulação próprio, com testes e reprodutibilidade
-- [ ] Implementar agente explicativo com ferramentas de leitura, fontes e limites claros
-- [ ] Observabilidade, logs, métricas e testes do agente
-- [ ] Revisar segurança, licenças e atribuições antes de publicar
+**Status: concluído**
 
-**Decisão pendente:** confirmar se o bootcamp permite redistribuir ou adaptar seu código; não confundir uma versão independente com um simples rebranding do código original.
+- [x] Motor experimental de simulação
+- [x] Torneio eliminatório com quatro seleções
+- [x] Ratings ilustrativos
+- [x] Simulações reproduzíveis por semente
+- [x] Cálculo de frequências de títulos simulados
+- [x] Integração ao dashboard
+- [x] Testes automatizados
+
+**Limitação:** os ratings são ilustrativos e não foram
+estimados a partir dos resultados históricos.
+
+## V6.1 — Infraestrutura histórica
+
+**Status: concluído**
+
+- [x] Identificação de fonte histórica de partidas
+- [x] Snapshot versionado da base original
+- [x] Verificação de integridade por SHA-256
+- [x] Validação e transformação dos registros
+- [x] Auditoria de duplicidades e conflitos
+- [x] Quarentena de registros inconsistentes
+- [x] Reconstrução reproduzível da base
+- [x] Recuperação offline
+- [x] Documentação de proveniência
+
+Resultado: 49.938 partidas aprovadas e dois registros
+conflitantes preservados em quarentena.
+
+## V6.2 — Historical Football Analytics
+
+**Status: implementado — integração à main pendente**
+
+- [x] Estatísticas individuais por seleção
+- [x] Vitórias, empates e derrotas
+- [x] Gols marcados, sofridos e saldo
+- [x] Pontuação e aproveitamento
+- [x] Ranking histórico por aproveitamento
+- [x] Critérios determinísticos de desempate
+- [x] Filtros por período e competição
+- [x] Quantidade mínima de partidas
+- [x] Dashboard histórico interativo
+- [x] Gráfico comparativo de seleções
+- [x] Análise individual de desempenho
+- [x] Atualização da identidade visual
+- [x] Testes automatizados: 79 aprovados
+- [ ] Revisão final e merge na main
+
+**Limitação:** o ranking é descritivo e não ajusta
+a força dos adversários.
+
+## V7 — Rating de força baseado em dados
+
+**Status: planejado**
+
+- [ ] Definir metodologia de rating Elo
+- [ ] Estabelecer critérios para partidas elegíveis
+- [ ] Processar partidas em ordem cronológica
+- [ ] Atualizar ratings após cada confronto
+- [ ] Investigar efeitos do mando de campo
+- [ ] Avaliar sensibilidade dos parâmetros
+- [ ] Criar ranking de força separado do aproveitamento
+- [ ] Implementar testes automatizados
+
+## V8 — Validação preditiva
+
+**Status: planejado**
+
+- [ ] Definir protocolo de avaliação temporal
+- [ ] Evitar vazamento de informações futuras
+- [ ] Estimar probabilidades de confrontos
+- [ ] Comparar resultados com modelos de referência
+- [ ] Avaliar calibração das probabilidades
+- [ ] Calcular métricas apropriadas, como Brier Score
+- [ ] Documentar limitações e incertezas
+
+## V9 — Simulação orientada por dados
+
+**Status: planejado**
+
+- [ ] Integrar ratings históricos ao simulador
+- [ ] Substituir ratings ilustrativos por estimativas
+- [ ] Avaliar modelos de resultados de partidas
+- [ ] Simular diferentes cenários de torneios
+- [ ] Apresentar probabilidades e incertezas
+- [ ] Testar reprodutibilidade e consistência
+
+## Evoluções complementares
+
+- [ ] Melhorar acessibilidade e responsividade
+- [ ] Consolidar e organizar o CSS
+- [ ] Aprimorar documentação técnica
+- [ ] Implementar observabilidade
+- [ ] Avaliar recursos explicativos com IA
+- [ ] Revisar segurança e dependências
+- [ ] Preparar demonstração pública do projeto
+
+## Princípios do projeto
+
+1. Dados rastreáveis e auditáveis.
+2. Separação entre estatísticas e previsões.
+3. Modelos reproduzíveis e testáveis.
+4. Transparência sobre limitações.
+5. Evolução incremental e documentação contínua.
+
+---
+
+Orbia Intelligence — Do histórico à inteligência de jogo.

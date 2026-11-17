@@ -11,12 +11,17 @@ from components.metrics import render_metrics
 from components.charts import render_probability_chart
 from components.statistics import render_statistical_summary
 from components.simulator import render_simulator
+from components.historical import render_historical_dashboard
 
 BASE = Path(__file__).resolve().parent
 RANKING = carregar_ranking(BASE / "data" / "ranking_observado_video.csv")
 DADOS = resumo(RANKING, "Espanha")
 
-st.set_page_config(page_title="Orbia AI Lab · Copa 2026", page_icon="⚽", layout="wide")
+st.set_page_config(
+    page_title="Orbia Intelligence | Football Analytics",
+    page_icon="⚽",
+    layout="wide",
+)
 st.html(
     "<style>"
     + (BASE / "assets" / "styles.css").read_text(encoding="utf-8")
@@ -30,7 +35,12 @@ render_header()
 
 # Filtros do Intelligence Dashboard
 st.sidebar.title("⚽ Orbia Intelligence")
-st.sidebar.caption("Exploração do ranking observado")
+st.sidebar.caption("Laboratório de análise de futebol")
+
+st.sidebar.markdown("#### Probabilidades observadas")
+st.sidebar.caption(
+    "O filtro abaixo afeta somente a aba Visão geral."
+)
 
 selecoes = [item.selecao for item in RANKING]
 
@@ -45,12 +55,13 @@ ranking_filtrado = [
     if item.selecao in selecoes_filtradas
 ]
 
-aba1, aba2, aba3, aba4 = st.tabs(
+aba1, aba2, aba3, aba4, aba5 = st.tabs(
     [
         "Visão geral",
         "Metodologia",
         "Origem e créditos",
         "Simulador Monte Carlo",
+        "Análise histórica",
     ]
 )
 
@@ -112,11 +123,32 @@ with aba2:
         "somas superiores a 100%."
     )
 
-    st.subheader("O que esta versão não faz")
+    st.subheader("Capacidades atuais do Orbia")
+
     st.write(
-        "Não executa simulações Monte Carlo, não treina "
-        "modelos preditivos, não calcula novas probabilidades "
-        "e não utiliza agentes ou LLMs."
+        "O Orbia Intelligence reúne análises descritivas "
+        "de probabilidades observadas em uma demonstração externa, "
+        "estatísticas históricas de partidas internacionais, "
+        "ranking de seleções por aproveitamento e um simulador "
+        "experimental de torneios por Monte Carlo."
+    )
+
+    st.subheader("Limitações e interpretação")
+
+    st.write(
+        "Os percentuais observados na demonstração externa "
+        "não são previsões produzidas pelo Orbia. "
+        "O ranking histórico mede aproveitamento, mas não "
+        "representa a classificação oficial da FIFA nem "
+        "a força relativa das seleções."
+    )
+
+    st.write(
+        "O simulador Monte Carlo utiliza ratings ilustrativos, "
+        "ainda não estimados a partir da base histórica. "
+        "O projeto ainda não possui um modelo preditivo "
+        "treinado, calibrado e validado retrospectivamente "
+        "para estimar probabilidades reais de resultados."
     )
 
     st.info(
@@ -132,3 +164,5 @@ with aba3:
     st.write("Nenhum código do pipeline original foi incluído neste MVP. A reutilização do projeto-base depende da verificação de permissões.")
 with aba4:
     render_simulator()
+with aba5:
+    render_historical_dashboard()
