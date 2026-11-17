@@ -9,6 +9,7 @@ from src.retrospectiva import carregar_ranking, resumo
 from components.header import render_header
 from components.metrics import render_metrics
 from components.charts import render_probability_chart
+from components.statistics import render_statistical_summary
 
 BASE = Path(__file__).resolve().parent
 RANKING = carregar_ranking(BASE / "data" / "ranking_observado_video.csv")
@@ -47,8 +48,43 @@ aba1, aba2, aba3 = st.tabs(["Visão geral", "Metodologia", "Origem e créditos"]
 
 with aba1:
     render_metrics(ranking_filtrado, len(RANKING))
-
     render_probability_chart(ranking_filtrado)
+    render_statistical_summary(RANKING)
+
+    estatisticas = analisar_recorte(RANKING)
+
+    with st.container(border=True):
+        col1, col2, col3, col4 = st.columns(4)
+
+        col1.metric(
+            "Percentual observado",
+            f"{estatisticas.percentual_observado:.1f}%"
+            .replace(".", ","),
+        )
+
+        col2.metric(
+            "Fora do recorte observado",
+            f"{estatisticas.percentual_nao_exibido:.1f}%"
+            .replace(".", ","),
+        )
+
+        col3.metric(
+            "Soma das duas líderes",
+            f"{estatisticas.concentracao_duas_lideres:.1f}%"
+            .replace(".", ","),
+        )
+
+        col4.metric(
+            "Amplitude do ranking",
+            f"{estatisticas.amplitude_pp:.1f} p.p."
+            .replace(".", ","),
+        )
+
+    st.caption(
+        "Os indicadores descrevem o ranking parcial disponível. "
+        "Não representam novas previsões ou simulações."
+    )
+
 
     st.markdown(
         """
@@ -67,12 +103,55 @@ with aba1:
         "Fonte dos percentuais: observação da gravação enviada pela "
         "participante. Ainda não é um snapshot completo exportado do modelo."
     )
+
 with aba2:
     st.subheader("O que esta versão faz")
-    st.write("Lê um ranking parcial, valida percentuais, identifica a seleção líder e compara com o campeão informado no material fornecido.")
+    st.write(
+        "O Orbia Intelligence analisa um ranking parcial "
+        "observado em uma demonstração. Valida os dados, "
+        "identifica a seleção líder e apresenta comparações "
+        "e estatísticas descritivas."
+    )
+
+    st.subheader("Como os indicadores são calculados")
+
+    st.markdown(
+        """
+        - **Percentual observado:** soma dos percentuais
+          das seleções disponíveis (47,7%).
+        - **Complemento até 100%:** diferença entre 100%
+          e a soma observada (52,3%). Não identifica
+          individualmente os resultados ausentes.
+        - **Soma das duas líderes:** soma dos dois maiores
+          percentuais observados (33,3%).
+        - **Diferença entre líderes:** subtração entre
+          os dois maiores percentuais (0,5 p.p.).
+        - **Amplitude:** diferença entre o maior e o menor
+          percentual observado (10,5 p.p.).
+        """
+    )
+
+    st.subheader("Validação dos dados")
+    st.write(
+        "O motor estatístico rejeita rankings vazios, "
+        "seleções duplicadas, percentuais inválidos, "
+        "valores negativos, valores acima de 100% e "
+        "somas superiores a 100%."
+    )
+
     st.subheader("O que esta versão não faz")
-    st.write("Não executa simulações Monte Carlo, não treina modelos, não calcula probabilidades novas e não utiliza agentes ou LLMs.")
-    st.info("Para métricas como Brier multiclasse ou calibração, precisamos de um snapshot completo, datado e verificável das probabilidades pré-torneio.")
+    st.write(
+        "Não executa simulações Monte Carlo, não treina "
+        "modelos preditivos, não calcula novas probabilidades "
+        "e não utiliza agentes ou LLMs."
+    )
+
+    st.info(
+        "Para avaliar calibração ou métricas como o Brier "
+        "multiclasse, precisamos de um conjunto completo, "
+        "datado e verificável de probabilidades anteriores "
+        "aos resultados avaliados."
+    )
 with aba3:
     st.subheader("Transparência de autoria")
     st.write("Este MVP é uma implementação independente de retrospectiva, criada como evolução de estudo de caso. O IAPredict original foi desenvolvido por Marcos Vinicius da Silva e utilizado como referência em um bootcamp.")
