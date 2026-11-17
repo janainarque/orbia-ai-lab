@@ -123,7 +123,6 @@ with aba2:
         "somas superiores a 100%."
     )
 
-    
     st.subheader("Capacidades atuais do Orbia")
 
     st.write(
