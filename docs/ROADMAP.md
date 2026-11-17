@@ -50,7 +50,7 @@ conflitantes preservados em quarentena.
 
 ## V6.2 — Historical Football Analytics
 
-**Status: implementado — integração à main pendente**
+**Status: concluído e integrado à main**
 
 - [x] Estatísticas individuais por seleção
 - [x] Vitórias, empates e derrotas
@@ -65,23 +65,61 @@ conflitantes preservados em quarentena.
 - [x] Análise individual de desempenho
 - [x] Atualização da identidade visual
 - [x] Testes automatizados: 79 aprovados
-- [ ] Revisão final e merge na main
+- [x] Revisão final e merge na main
 
 **Limitação:** o ranking é descritivo e não ajusta
 a força dos adversários.
 
-## V7 — Rating de força baseado em dados
 
-**Status: planejado**
+## V7 — Elo Rating Engine
 
-- [ ] Definir metodologia de rating Elo
-- [ ] Estabelecer critérios para partidas elegíveis
-- [ ] Processar partidas em ordem cronológica
-- [ ] Atualizar ratings após cada confronto
+**Status: implementado — publicação pendente**
+
+### Motor Elo
+- [x] Definir metodologia de rating Elo experimental
+- [x] Implementar rating inicial de 1500 pontos
+- [x] Implementar fator K de 20 pontos
+- [x] Processar partidas em ordem cronológica
+- [x] Calcular resultados esperados de cada confronto
+- [x] Atualizar ratings após vitórias, empates e derrotas
+- [x] Garantir resultados determinísticos
+
+### Ranking e filtros
+- [x] Criar ranking de força separado do aproveitamento
+- [x] Permitir seleção de data de referência
+- [x] Filtrar por quantidade mínima de partidas
+- [x] Filtrar seleções por atividade recente
+- [x] Implementar comparação entre duas seleções
+
+### Dashboard e evolução histórica
+- [x] Criar aba Ranking Elo no Streamlit
+- [x] Exibir classificação e gráfico Top 15
+- [x] Implementar evolução histórica anual dos ratings
+- [x] Permitir comparação de até quatro seleções
+- [x] Implementar filtro de período histórico
+- [x] Preservar o histórico anterior ao período visualizado
+- [x] Tratar seleções vazias e períodos sem partidas
+- [x] Validar o funcionamento com datas anteriores a 2000
+
+### Qualidade e publicação
+- [x] Implementar testes automatizados
+- [x] Executar 127 testes com sucesso durante o desenvolvimento
+- [x] Validar o funcionamento da interface
+- [ ] Atualizar documentação da V7
+- [ ] Executar testes finais
+- [ ] Criar commit e Pull Request
+- [ ] Integrar à main
+
+### Limitações e pesquisas futuras
 - [ ] Investigar efeitos do mando de campo
-- [ ] Avaliar sensibilidade dos parâmetros
-- [ ] Criar ranking de força separado do aproveitamento
-- [ ] Implementar testes automatizados
+- [ ] Avaliar sensibilidade dos parâmetros Elo
+- [ ] Avaliar ponderação por competição
+- [ ] Validar capacidade preditiva do modelo
+
+**Nota:** o ranking Elo é experimental e não corresponde
+ao ranking oficial da FIFA. Ainda não foram aplicados
+ajustes por mando de campo, competição ou diferença de gols.
+A capacidade preditiva será avaliada na V8.
 
 ## V8 — Validação preditiva
 

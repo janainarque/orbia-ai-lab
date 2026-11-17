@@ -12,6 +12,7 @@ from components.charts import render_probability_chart
 from components.statistics import render_statistical_summary
 from components.simulator import render_simulator
 from components.historical import render_historical_dashboard
+from components.elo_dashboard import render_elo_dashboard
 
 BASE = Path(__file__).resolve().parent
 RANKING = carregar_ranking(BASE / "data" / "ranking_observado_video.csv")
@@ -55,13 +56,14 @@ ranking_filtrado = [
     if item.selecao in selecoes_filtradas
 ]
 
-aba1, aba2, aba3, aba4, aba5 = st.tabs(
+aba1, aba2, aba3, aba4, aba5, aba6 = st.tabs(
     [
         "Visão geral",
         "Metodologia",
         "Origem e créditos",
         "Simulador Monte Carlo",
         "Análise histórica",
+        "Ranking Elo",
     ]
 )
 
@@ -166,3 +168,5 @@ with aba4:
     render_simulator()
 with aba5:
     render_historical_dashboard()
+with aba6:
+    render_elo_dashboard()
