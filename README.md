@@ -6,9 +6,13 @@ Laboratório independente de análise de futebol que combina dados históricos, 
 
 O objetivo é construir, de forma incremental, uma plataforma de inteligência esportiva com foco em qualidade de dados, reprodutibilidade, testes automatizados e transparência metodológica.
 
-**Versão em desenvolvimento: V7 — Elo Rating Engine**
+**Versão em desenvolvimento: V8 — Predictive Validation & Calibration**
 
-A V6.2 está integrada à `main`. A V7 está implementada na branch `feature/elo-rating-engine` e aguarda revisão e publicação.
+A V7 — Elo Rating Engine está integrada à `main`.
+
+A V8 está em desenvolvimento na branch `feature/predictive-validation`, incorporando validação temporal, métricas probabilísticas, diagnóstico de calibração e ajuste experimental das probabilidades Elo.
+
+O projeto utiliza 49.938 partidas históricas válidas e conta com 220 testes automatizados aprovados.
 
 ## Funcionalidades
 
@@ -65,7 +69,55 @@ O modelo utiliza uma implementação experimental do sistema Elo, sem vantagem d
 
 A ordenação de partidas realizadas na mesma data é determinística, mas não necessariamente corresponde à ordem real dos horários dos confrontos.
 
-Os ratings não representam a classificação oficial da FIFA. A capacidade preditiva do modelo ainda não foi validada.
+Os ratings não representam a classificação oficial da FIFA.
+
+A V8 introduz a avaliação histórica da capacidade preditiva do modelo Elo, incluindo comparação com baseline estatístico, validação temporal e análise de calibração. A avaliação final no conjunto de teste permanece reservada.
+
+### 3. Predictive Validation & Calibration — V8
+
+A V8 introduz uma camada de avaliação preditiva para verificar a qualidade das probabilidades produzidas pelo motor Elo.
+
+**Metodologia implementada:**
+
+- Geração cronológica de previsões pré-jogo.
+- Proteção contra vazamento temporal, incluindo partidas realizadas na mesma data.
+- Separação temporal entre treinamento, validação e teste.
+- Baseline estatístico baseado nas frequências históricas.
+- Avaliação por Log Loss e Brier Score multiclasse.
+- Diagnóstico de calibração por classe utilizando Expected Calibration Error (ECE).
+- Busca em grade para ajuste experimental de probabilidades.
+- Testes automatizados e documentação reprodutível.
+
+**Divisão temporal:**
+
+| Conjunto | Período | Partidas |
+|---|---|---:|
+| Treinamento | Até 2017 | 41.308 |
+| Validação | 2018–2021 | 3.562 |
+| Teste reservado | 2022 em diante | 5.068 |
+
+**Resultados na validação histórica (2018–2021):**
+
+| Métrica | Elo original | Elo ajustado |
+|---|---:|---:|
+| Log Loss | 0,899251 | 0,880978 |
+| Brier Score | 0,528570 | 0,517927 |
+| ECE — Vitória | 0,061459 | 0,030736 |
+| ECE — Empate | 0,027360 | 0,016799 |
+| ECE — Derrota | 0,085859 | 0,027489 |
+
+Os parâmetros selecionados exclusivamente no treinamento foram:
+
+- Ajuste Elo da equipe registrada como mandante: +75 pontos.
+- Taxa de empate equilibrado: 27,5%.
+
+O modelo ajustado apresentou redução relativa aproximada de 2,03% no Log Loss e 2,01% no Brier Score em relação ao Elo original durante a validação.
+
+**Limitações:** o ajuste associado à equipe mandante não comprova vantagem real de jogar em casa, especialmente porque partidas internacionais podem ocorrer em campo neutro. Os resultados são experimentais e não garantem desempenho futuro.
+
+O conjunto de teste permanece reservado e não foi utilizado para seleção dos parâmetros.
+
+**Documentação técnica:** [Validação Preditiva V8](docs/VALIDACAO_PREDITIVA_V8.md).
 
 ### 3. Simulador Monte Carlo
 
