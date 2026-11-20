@@ -13,6 +13,7 @@ from components.statistics import render_statistical_summary
 from components.simulator import render_simulator
 from components.historical import render_historical_dashboard
 from components.elo_dashboard import render_elo_dashboard
+from components.predictive_dashboard import render_predictive_dashboard
 
 BASE = Path(__file__).resolve().parent
 RANKING = carregar_ranking(BASE / "data" / "ranking_observado_video.csv")
@@ -56,7 +57,7 @@ ranking_filtrado = [
     if item.selecao in selecoes_filtradas
 ]
 
-aba1, aba2, aba3, aba4, aba5, aba6 = st.tabs(
+aba1, aba2, aba3, aba4, aba5, aba6, aba7 = st.tabs(
     [
         "Visão geral",
         "Metodologia",
@@ -64,6 +65,7 @@ aba1, aba2, aba3, aba4, aba5, aba6 = st.tabs(
         "Simulador Monte Carlo",
         "Análise histórica",
         "Ranking Elo",
+        "Validação Preditiva",
     ]
 )
 
@@ -170,3 +172,5 @@ with aba5:
     render_historical_dashboard()
 with aba6:
     render_elo_dashboard()
+with aba7:
+    render_predictive_dashboard()

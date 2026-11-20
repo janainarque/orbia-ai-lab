@@ -34,22 +34,22 @@ def render_header() -> None:
 
         <p>
             Explore dados históricos de seleções,
-            compare desempenhos e experimente
-            simulações estatísticas em um laboratório
-            de análise de futebol.
+            analise rankings Elo e compare modelos
+            preditivos com validação temporal,
+            métricas de desempenho e calibração.
         </p>
 
 
         <div class="hero-footer">
-            <span class="tag">V7</span>
+            <span class="tag">V9</span>
             <span class="hero-meta">
-                Dados históricos auditados
+                49.938 partidas auditadas
             </span>
             <span class="hero-meta">
                 Elo Rating Engine
             </span>
             <span class="hero-meta">
-                Simulação experimental
+                Validação preditiva
             </span>
         </div>
 
